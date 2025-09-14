@@ -127,7 +127,7 @@ type PlanFormProps = {
 
 export function PlanForm({ initialData, onFinish, adminToken }: PlanFormProps) {
   const queryClient = useQueryClient();
-  const isEditMode = !!initialData;
+  const isEditMode = !!initialData && !!initialData.id;
 
   const form = useForm<PlanFormValues>({
     resolver: zodResolver(planSchema),

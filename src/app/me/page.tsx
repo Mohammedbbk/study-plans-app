@@ -110,7 +110,7 @@ export default function MePage() {
   };
 
   return (
-    <main className="container py-12">
+    <main className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold tracking-tight mb-2">
         My Subscription
       </h1>
@@ -154,7 +154,7 @@ export default function MePage() {
 
 function LoadingSkeleton() {
   return (
-    <main className="container py-12">
+    <main className="container mx-auto px-4 py-12">
       <Skeleton className="h-10 w-1/2 mb-2" />
       <Skeleton className="h-6 w-3/4 mb-8" />
       <Card>

@@ -45,13 +45,25 @@ export default function AdminPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleDuplicate = (plan: Plan) => {
+    const duplicatedPlan: Plan = {
+      ...plan,
+      id: "", 
+      slug: `${plan.slug}-copy`,
+      title: `${plan.title} (Copy)`,
+      isActive: false,
+    };
+    setPlanToEdit(duplicatedPlan);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleFinishEditing = () => {
     setPlanToEdit(null);
   };
 
   if (!isAuthenticated) {
     return (
-      <main className="container py-12">
+      <main className="container mx-auto px-4 py-12">
         <div className="max-w-md mx-auto">
           <Card>
             <CardHeader className="text-center">
@@ -82,7 +94,7 @@ export default function AdminPage() {
   }
 
   return (
-    <main className="container py-12">
+    <main className="container mx-auto px-4 py-12">
       <div className="mb-8 flex justify-between items-center">
         <div>
           <h1 className="text-4xl font-bold tracking-tight">Admin Panel</h1>
@@ -129,7 +141,7 @@ export default function AdminPage() {
               <CardDescription>View and manage existing plans.</CardDescription>
             </CardHeader>
             <CardContent>
-              <PlansTable onEdit={handleEdit} adminToken={adminToken} />
+              <PlansTable onEdit={handleEdit} onDuplicate={handleDuplicate} adminToken={adminToken} />
             </CardContent>
           </Card>
         </div>

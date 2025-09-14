@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plan } from "@/app/api/_store";
 import { toast } from "sonner";
-import { MoreHorizontal, Trash2, Pencil } from "lucide-react";
+import { MoreHorizontal, Trash2, Pencil, Copy } from "lucide-react";
 
 import {
   Table,
@@ -63,10 +63,11 @@ async function deletePlanAction({
 
 type PlansTableProps = {
   onEdit: (plan: Plan) => void;
+  onDuplicate: (plan: Plan) => void;
   adminToken: string;
 };
 
-export function PlansTable({ onEdit, adminToken }: PlansTableProps) {
+export function PlansTable({ onEdit, onDuplicate, adminToken }: PlansTableProps) {
   const queryClient = useQueryClient();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [planToDelete, setPlanToDelete] = useState<Plan | null>(null);
@@ -171,6 +172,9 @@ export function PlansTable({ onEdit, adminToken }: PlansTableProps) {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => onEdit(plan)}>
                           <Pencil className="mr-2 h-4 w-4" /> Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => onDuplicate(plan)}>
+                          <Copy className="mr-2 h-4 w-4" /> Duplicate
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => handleDeleteClick(plan)}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Plan } from "../api/_store";
 import { PlanCard } from "@/components/PlanCard";
@@ -15,7 +15,7 @@ async function getAllPlans(): Promise<Plan[]> {
   return res.json();
 }
 
-export default function PlansPage() {
+function PlansPageContent() {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -150,5 +150,33 @@ export default function PlansPage() {
         </>
       )}
     </main>
+  );
+}
+
+export default function PlansPage() {
+  return (
+    <Suspense fallback={
+      <main className="container py-12 px-4">
+        <div className="mb-8 text-center">
+          <Skeleton className="h-10 w-64 mx-auto mb-4" />
+          <Skeleton className="h-6 w-96 mx-auto" />
+        </div>
+        <div className="mb-8">
+          <Skeleton className="h-10 w-full mb-4" />
+          <div className="flex flex-wrap gap-2">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <Skeleton key={i} className="h-6 w-16" />
+            ))}
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-64 w-full" />
+          ))}
+        </div>
+      </main>
+    }>
+      <PlansPageContent />
+    </Suspense>
   );
 }

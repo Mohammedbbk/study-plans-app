@@ -33,7 +33,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Input } from "@/components/ui/input";
 
 async function fetchAdminPlans(token: string): Promise<Plan[]> {
   if (!token) return [];
@@ -76,7 +75,6 @@ export function PlansTable({ onEdit, adminToken }: PlansTableProps) {
     data: plans,
     isLoading,
     isError,
-    refetch,
   } = useQuery<Plan[]>({
     queryKey: ["admin-plans"],
     queryFn: () => fetchAdminPlans(adminToken),

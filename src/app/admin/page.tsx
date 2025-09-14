@@ -35,7 +35,7 @@ export default function AdminPage() {
       } else {
         toast.error("Invalid admin token");
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to validate token");
     }
   };

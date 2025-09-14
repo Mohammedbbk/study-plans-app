@@ -105,7 +105,7 @@ export function SearchAndFilter({ allTags, onFiltersChange }: SearchAndFilterPro
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
           {query.trim() && (
-            <span>Search: "{query.trim()}"</span>
+            <span>Search: &quot;{query.trim()}&quot;</span>
           )}
           {selectedTags.length > 0 && (
             <span>Tags: {selectedTags.join(", ")}</span>

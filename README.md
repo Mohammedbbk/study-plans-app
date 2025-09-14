@@ -2,6 +2,10 @@
 
 A modern, full-stack study plans management application built with Next.js 15, featuring an admin panel for creating and managing educational courses, and a user interface for browsing and subscribing to study plans.
 
+## 🚀 Live Demo
+
+**Production URL**: [study-plans-app-ycl8.vercel.app](https://study-plans-app-ycl8.vercel.app)
+
 ## Features
 
 - 📚 **Study Plans Management**: Create, edit, and delete study plans with modules and lessons
@@ -78,7 +82,7 @@ bun dev
 
 5. **Open your browser**
    
-   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the application locally, or visit the [live demo](https://study-plans-app-ycl8.vercel.app) to see the deployed version.
 
 ## Usage
 

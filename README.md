@@ -14,6 +14,8 @@ A modern, full-stack study plans management application built with Next.js 15, f
 - 🎨 **Modern UI**: Built with shadcn/ui components and Tailwind CSS
 - 🔐 **Authentication**: Admin token-based authentication for secure operations
 - 📱 **Responsive Design**: Mobile-first responsive design
+- 📝 **Duplication Functionality**: Easily duplicate existing study plans to create new ones based on existing templates.
+- 🔍 **Filtering and Searching**: Efficiently find study plans by title, tags, and status (active/inactive).
 - ⚡ **Performance**: Built with Next.js 15 and Turbopack for optimal performance
 
 ## Tech Stack
@@ -106,6 +108,7 @@ bun dev
 - `GET /api/plans/[slug]` - Fetch a specific study plan by slug
 - `GET /api/admin/plans` - Fetch all plans (admin only)
 - `POST /api/admin/plans` - Create a new study plan (admin only)
+- `POST /api/admin/plans/[id]/duplicate` - Duplicate a study plan (admin only)
 - `PUT /api/admin/plans/[id]` - Update a study plan (admin only)
 - `DELETE /api/admin/plans/[id]` - Delete a study plan (admin only)
 - `GET /api/me` - Get user profile and subscriptions

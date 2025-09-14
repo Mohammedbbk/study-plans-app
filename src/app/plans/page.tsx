@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback, Suspense } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Plan } from "../api/_store";
 import { PlanCard } from "@/components/PlanCard";
@@ -65,10 +65,6 @@ function PlansPageContent() {
     fetchPlans();
   }, []);
 
-  const handleFiltersChange = useCallback(({ query, selectedTags }: { query: string; selectedTags: string[] }) => {
-    setFilters({ query, selectedTags });
-  }, []);
-
   if (isLoading) {
     return (
       <main className="container py-12 px-4">
@@ -118,7 +114,6 @@ function PlansPageContent() {
       <div className="mb-8">
         <SearchAndFilter 
           allTags={allTags} 
-          onFiltersChange={handleFiltersChange}
         />
       </div>
 

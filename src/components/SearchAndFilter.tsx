@@ -9,10 +9,9 @@ import { Search, X } from "lucide-react";
 
 type SearchAndFilterProps = {
   allTags: string[];
-  onFiltersChange: (filters: { query: string; selectedTags: string[] }) => void;
 };
 
-export function SearchAndFilter({ allTags, onFiltersChange }: SearchAndFilterProps) {
+export function SearchAndFilter({ allTags }: SearchAndFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -40,10 +39,6 @@ export function SearchAndFilter({ allTags, onFiltersChange }: SearchAndFilterPro
 
     return () => clearTimeout(timeoutId);
   }, [query, selectedTags, router]);
-
-  useEffect(() => {
-    onFiltersChange({ query: query.trim(), selectedTags });
-  }, [query, selectedTags, onFiltersChange]);
 
   const toggleTag = useCallback((tag: string) => {
     setSelectedTags(prev => 

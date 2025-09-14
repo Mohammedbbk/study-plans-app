@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plan } from "@/app/api/_store";
 import { toast } from "sonner";
@@ -64,11 +64,11 @@ async function deletePlanAction({
 
 type PlansTableProps = {
   onEdit: (plan: Plan) => void;
+  adminToken: string;
 };
 
-export function PlansTable({ onEdit }: PlansTableProps) {
+export function PlansTable({ onEdit, adminToken }: PlansTableProps) {
   const queryClient = useQueryClient();
-  const [adminToken, setAdminToken] = useState("");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [planToDelete, setPlanToDelete] = useState<Plan | null>(null);
 
@@ -80,7 +80,7 @@ export function PlansTable({ onEdit }: PlansTableProps) {
   } = useQuery<Plan[]>({
     queryKey: ["admin-plans"],
     queryFn: () => fetchAdminPlans(adminToken),
-    enabled: false,
+    enabled: !!adminToken,
   });
 
   const deleteMutation = useMutation({
@@ -98,32 +98,15 @@ export function PlansTable({ onEdit }: PlansTableProps) {
     },
   });
 
-  const handleFetchClick = () => {
-    if (!adminToken) {
-      toast.error("Admin Token is required to fetch plans.");
-      return;
-    }
-    refetch();
-  };
 
   const handleDeleteClick = (plan: Plan) => {
     setPlanToDelete(plan);
     setIsDeleteDialogOpen(true);
   };
 
+
   return (
     <div>
-      <div className="flex items-center gap-2 mb-4">
-        <Input
-          type="password"
-          placeholder="Enter Admin Token to Fetch Plans"
-          value={adminToken}
-          onChange={(e) => setAdminToken(e.target.value)}
-        />
-        <Button onClick={handleFetchClick} disabled={isLoading}>
-          {isLoading ? "Fetching..." : "Fetch Plans"}
-        </Button>
-      </div>
       <div className="border rounded-lg">
         <Table>
           <TableHeader>

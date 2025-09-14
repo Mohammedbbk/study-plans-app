@@ -12,7 +12,7 @@ import { CheckCircle2, ClockIcon } from "lucide-react";
 import { SubscribeButton } from "@/components/SubscribeButton";
 
 async function getPlan(slug: string): Promise<Plan | null> {
-  const res = await fetch(`http://localhost:3000/api/plans/${slug}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/plans/${slug}`, {
     cache: "no-store",
   });
   if (!res.ok) {

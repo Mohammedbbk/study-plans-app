@@ -122,11 +122,11 @@ async function updatePlan({
 type PlanFormProps = {
   initialData?: Plan | null;
   onFinish?: () => void;
+  adminToken: string;
 };
 
-export function PlanForm({ initialData, onFinish }: PlanFormProps) {
+export function PlanForm({ initialData, onFinish, adminToken }: PlanFormProps) {
   const queryClient = useQueryClient();
-  const [adminToken, setAdminToken] = useState("");
   const isEditMode = !!initialData;
 
   const form = useForm<PlanFormValues>({
@@ -177,7 +177,16 @@ export function PlanForm({ initialData, onFinish }: PlanFormProps) {
     onSuccess: () => {
       toast.success("Plan created successfully!");
       queryClient.invalidateQueries({ queryKey: ["admin-plans"] });
-      form.reset();
+      form.reset({
+        title: "",
+        slug: "",
+        description: "",
+        durationWeeks: 8,
+        price: 299,
+        tags: [],
+        isActive: true,
+        modules: [{ id: generateUUID(), title: "", lessons: [""] }],
+      });
     },
     onError: (error) => {
       toast.error("Creation Failed", { description: error.message });
@@ -377,23 +386,7 @@ export function PlanForm({ initialData, onFinish }: PlanFormProps) {
         />
 
         <div className="pt-6 border-t">
-          <FormItem>
-            <FormLabel>Admin Token</FormLabel>
-            <FormControl>
-              <Input
-                type="password"
-                placeholder="Enter your secret token"
-                value={adminToken}
-                onChange={(e) => setAdminToken(e.target.value)}
-              />
-            </FormControl>
-            <FormDescription>
-              This is required to authorize your request.
-            </FormDescription>
-          </FormItem>
-        </div>
-
-        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
           <Button type="submit" disabled={mutation.isPending}>
             {mutation.isPending
               ? isEditMode
@@ -408,6 +401,7 @@ export function PlanForm({ initialData, onFinish }: PlanFormProps) {
               Cancel Edit
             </Button>
           )}
+          </div>
         </div>
       </form>
     </Form>

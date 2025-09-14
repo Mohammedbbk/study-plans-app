@@ -2,7 +2,7 @@ import { Plan } from "../api/_store";
 import { PlanCard } from "@/components/PlanCard"; 
 
 async function getPlans(): Promise<Plan[]> {
-  const res = await fetch("http://localhost:3000/api/plans", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/plans`, {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch plans");
